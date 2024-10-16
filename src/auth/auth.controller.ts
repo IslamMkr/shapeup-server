@@ -1,6 +1,5 @@
 import {
     Controller,
-    Get,
     HttpCode,
     HttpStatus,
     Post,
@@ -21,10 +20,5 @@ export class AuthController {
     @Post('login')
     signIn(@Request() req) {
         return this.authService.login(req.user);
-    }
-
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user;
     }
 }
