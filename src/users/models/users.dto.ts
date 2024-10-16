@@ -10,6 +10,7 @@ import {
     MinDate,
 } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { Type } from 'class-transformer';
 
 export enum Sexe {
     Male = 'Male',
@@ -26,17 +27,18 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @Length(2, 30)
-    firstName: string;
+    firstname: string;
 
     @IsNotEmpty()
     @Length(2, 30)
-    lastName: string;
+    lastname: string;
 
     age: number;
 
     @IsDate()
     @IsNotEmpty()
     @MinDate(new Date('1950-01-01'))
+    @Type(() => Date)
     dateOfBirth: Date;
 
     @IsNotEmpty()
