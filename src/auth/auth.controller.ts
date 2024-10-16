@@ -1,25 +1,30 @@
 import {
-    Body,
     Controller,
+    Get,
     HttpCode,
     HttpStatus,
     Post,
+    Request,
     UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 
+    @Public()
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    signIn(@Body() signInDto: Record<string, any>) {
-        return this.authService.validateUser(
-            signInDto.email,
-            signInDto.password,
-        );
+    signIn(@Request() req) {
+        return this.authService.login(req.user);
+    }
+
+    @Get('profile')
+    getProfile(@Request() req) {
+        return req.user;
     }
 }
