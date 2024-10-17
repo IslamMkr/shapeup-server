@@ -6,6 +6,12 @@ import { Request } from 'express';
 import { AuthService } from '../auth.service';
 import { UserLogin } from 'src/users/models/user.type';
 
+/**
+ * LocalStrategy class extends PassportStrategy to implement local authentication.
+ *
+ * @class LocalStrategy
+ * @extends {PassportStrategy(Strategy)}
+ */
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
     constructor(private moduleRef: ModuleRef) {
@@ -15,6 +21,15 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         });
     }
 
+    /**
+     * Validates the user credentials and returns the authenticated user.
+     *
+     * @param request - The HTTP request object.
+     * @param email - The email address of the user.
+     * @param password - The password of the user.
+     * @returns A promise that resolves to the authenticated user.
+     * @throws {UnauthorizedException} If the user credentials are invalid.
+     */
     validate = async (
         request: Request,
         email: string,
