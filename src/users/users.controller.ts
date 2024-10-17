@@ -10,6 +10,7 @@ import {
 import { CreateUserDto } from './models/users.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { UsersService } from './users.service';
+import { UserLogin } from './models/user.type';
 
 @Controller('users')
 export class UsersController {
@@ -18,12 +19,13 @@ export class UsersController {
     @Public()
     @HttpCode(HttpStatus.OK)
     @Post('register')
-    register(@Body() createUserDto: CreateUserDto) {
-        return this.usersService.create(createUserDto);
+    async register(@Body() createUserDto: CreateUserDto) {
+        return await this.usersService.create(createUserDto);
     }
 
     @Get('me')
-    getProfile(@Request() req) {
-        return req.user;
+    async getProfile(@Request() req) {
+        const user = req.user as UserLogin;
+        return await this.usersService.userProfile(user.email);
     }
 }

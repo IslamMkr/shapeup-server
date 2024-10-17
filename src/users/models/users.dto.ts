@@ -57,4 +57,9 @@ export class CreateUserDto {
     height: number;
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+    @IsDate()
+    @IsNotEmpty()
+    @Type(() => Date)
+    updatedAt: Date;
+}

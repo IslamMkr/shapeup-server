@@ -4,6 +4,7 @@ import { Strategy } from 'passport-local';
 import { ContextIdFactory, ModuleRef } from '@nestjs/core';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
+import { UserLogin } from 'src/users/models/user.type';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -14,7 +15,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    validate = async (request: Request, email: string, password: string) => {
+    validate = async (
+        request: Request,
+        email: string,
+        password: string,
+    ): Promise<UserLogin> => {
         const contextId = ContextIdFactory.getByRequest(request);
         const authService = await this.moduleRef.resolve(
             AuthService,
