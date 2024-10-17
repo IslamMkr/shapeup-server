@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { ContextIdFactory, ModuleRef } from '@nestjs/core';
 import { Request } from 'express';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 import { UserLogin } from 'src/users/models/user.type';
 
 @Injectable()
